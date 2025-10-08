@@ -133,7 +133,15 @@ const CameraController = ({ model }: { model: THREE.Object3D | null }) => {
 };
 
 const SimpleViewer: React.FC = () => {
-  const { model, modelStats } = useStore();
+  const { model, modelStats, validationReport } = useStore();
+
+  // Helper function to check if a value exceeds the limit
+  const exceedsLimit = (actual: number, limit: number) => limit > 0 && actual > limit;
+
+  // Get limits from validation report, with fallback defaults
+  const triangleLimit = validationReport?.appliedTriangleBudget || 5000; // Default to 5000 (general DCL limit)
+  const materialLimit = validationReport?.maxMaterials || 2; // Default to 2 if no report
+  const textureLimit = validationReport?.maxTextures || 2; // Default to 2 if no report
 
   return (
     <div className="relative w-full h-full bg-gray-900">
@@ -190,14 +198,42 @@ const SimpleViewer: React.FC = () => {
 
       {/* Model Stats Overlay */}
       {model && modelStats && (
-        <div className="absolute top-4 left-4 bg-gray-800/90 backdrop-blur-sm text-white p-3 rounded-lg text-sm font-mono border border-gray-700 relative overflow-hidden">
+        <div className="absolute top-4 bg-gray-800/90 backdrop-blur-sm text-white p-4 rounded-lg text-base font-mono border border-gray-700 relative overflow-hidden z-50">
           <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 animate-pulse"></div>
-          <div className="space-y-1 relative">
-            <div><strong className="text-cyan-400">Triangles:</strong> <span className="text-white">{modelStats.triangleCount.toLocaleString()}</span></div>
-            <div><strong className="text-pink-400">Materials:</strong> <span className="text-white">{modelStats.materialCountExclAvatarSkin}</span></div>
-            <div><strong className="text-purple-400">Textures:</strong> <span className="text-white">{modelStats.usedTextureCount}</span></div>
-            <div><strong className="text-green-400">Size:</strong> <span className="text-white">{modelStats.bbox.width.toFixed(2)} × {modelStats.bbox.height.toFixed(2)} × {modelStats.bbox.depth.toFixed(2)}</span></div>
-            <div><strong className="text-yellow-400">File Size:</strong> <span className="text-white">{(modelStats.fileSizeBytes / 1024).toFixed(1)} KB</span></div>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-2 relative">
+            {/* Left Column */}
+            <div className="space-y-2 text-center">
+              <div>
+                <strong className="text-cyan-400">Triangles:</strong> 
+                <span className={exceedsLimit(modelStats.triangleCount, triangleLimit) ? "text-red-500 font-bold" : "text-white"}>
+                  {modelStats.triangleCount.toLocaleString()}
+                </span>
+              </div>
+              <div>
+                <strong className="text-pink-400">Materials:</strong> 
+                <span className={exceedsLimit(modelStats.materialCountExclAvatarSkin, materialLimit) ? "text-red-500 font-bold" : "text-white"}>
+                  {modelStats.materialCountExclAvatarSkin}
+                </span>
+              </div>
+              <div>
+                <strong className="text-purple-400">Textures:</strong> 
+                <span className={exceedsLimit(modelStats.usedTextureCount, textureLimit) ? "text-red-500 font-bold" : "text-white"}>
+                  {modelStats.usedTextureCount}
+                </span>
+              </div>
+            </div>
+            
+            {/* Right Column */}
+            <div className="space-y-2 text-center">
+              <div>
+                <strong className="text-green-400">Size:</strong> 
+                <span className="text-white">{modelStats.bbox.width.toFixed(2)} × {modelStats.bbox.height.toFixed(2)} × {modelStats.bbox.depth.toFixed(2)}</span>
+              </div>
+              <div>
+                <strong className="text-yellow-400">File Size:</strong> 
+                <span className="text-white">{(modelStats.fileSizeBytes / 1024).toFixed(1)} KB</span>
+              </div>
+            </div>
           </div>
         </div>
       )}

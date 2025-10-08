@@ -72,7 +72,7 @@ const App: React.FC = () => {
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Left Column - Viewer */}
               <div className="w-full lg:w-1/2">
-                <div className="w-full bg-gray-800/60 backdrop-blur-sm rounded-lg shadow-lg border border-gray-700 relative overflow-hidden">
+                <div className="w-full bg-gray-800/60 backdrop-blur-sm rounded-lg shadow-lg border border-gray-700 relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-indigo-500/10 animate-pulse"></div>
                   <div className="p-4 border-b border-gray-700 relative">
                     <h2 className="text-lg font-medium text-white">
