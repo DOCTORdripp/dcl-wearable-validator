@@ -2,6 +2,10 @@
 
 A production-ready TypeScript web application for validating Decentraland wearables against technical constraints. Built with React, Three.js, and Vite.
 
+## 🚀 Live Demo
+
+**[Try it now at wearables.doctordripp.com](https://wearables.doctordripp.com/)**
+
 ## Features
 
 - **Drag & Drop GLB/GLTF Support**: Upload 3D models directly in the browser
@@ -166,7 +170,7 @@ Requires WebGL 2.0 support for 3D rendering.
 
 ## License
 
-MIT License - see LICENSE file for details.
+Apache 2.0 License - see LICENSE file for details.
 
 ## Acknowledgments
 
