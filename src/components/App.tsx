@@ -91,7 +91,7 @@ const App: React.FC = () => {
               <div className="space-y-6 w-full lg:w-1/2">
               {/* Controls Panel */}
               {model && (
-                <div className="bg-gray-800/60 backdrop-blur-sm rounded-lg shadow-lg border border-gray-700 p-6 relative overflow-hidden">
+                <div className="bg-gray-800/60 backdrop-blur-sm rounded-lg shadow-lg border border-gray-700 p-6 relative overflow-hidden responsive-margin-top">
                   <div className="absolute inset-0 bg-gradient-to-br from-green-500/20 via-blue-500/20 to-purple-500/20 animate-pulse"></div>
                   <h2 className="text-lg font-medium text-white mb-4 relative">
                     <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">

@@ -28,6 +28,16 @@
   .select {
     @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
   }
+  
+  .responsive-margin-top {
+    margin-top: 120px;
+  }
+  
+  @media (min-width: 1024px) {
+    .responsive-margin-top {
+      margin-top: 0;
+    }
+  }
 }
 
 /* Custom scrollbar */

@@ -204,19 +204,19 @@ const SimpleViewer: React.FC = () => {
             {/* Left Column */}
             <div className="space-y-2 text-center">
               <div>
-                <strong className="text-cyan-400">Triangles:</strong> 
+                <strong className="text-cyan-400">Triangles: </strong> 
                 <span className={exceedsLimit(modelStats.triangleCount, triangleLimit) ? "text-red-500 font-bold" : "text-white"}>
                   {modelStats.triangleCount.toLocaleString()}
                 </span>
               </div>
               <div>
-                <strong className="text-pink-400">Materials:</strong> 
+                <strong className="text-pink-400">Materials: </strong> 
                 <span className={exceedsLimit(modelStats.materialCountExclAvatarSkin, materialLimit) ? "text-red-500 font-bold" : "text-white"}>
                   {modelStats.materialCountExclAvatarSkin}
                 </span>
               </div>
               <div>
-                <strong className="text-purple-400">Textures:</strong> 
+                <strong className="text-purple-400">Textures: </strong> 
                 <span className={exceedsLimit(modelStats.usedTextureCount, textureLimit) ? "text-red-500 font-bold" : "text-white"}>
                   {modelStats.usedTextureCount}
                 </span>
@@ -226,11 +226,11 @@ const SimpleViewer: React.FC = () => {
             {/* Right Column */}
             <div className="space-y-2 text-center">
               <div>
-                <strong className="text-green-400">Size:</strong> 
+                <strong className="text-green-400">Size: </strong> 
                 <span className="text-white">{modelStats.bbox.width.toFixed(2)} × {modelStats.bbox.height.toFixed(2)} × {modelStats.bbox.depth.toFixed(2)}</span>
               </div>
               <div>
-                <strong className="text-yellow-400">File Size:</strong> 
+                <strong className="text-yellow-400">File Size: </strong> 
                 <span className="text-white">{(modelStats.fileSizeBytes / 1024).toFixed(1)} KB</span>
               </div>
             </div>
