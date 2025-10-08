@@ -4,7 +4,7 @@ A production-ready TypeScript web application for validating Decentraland wearab
 
 ## 🚀 Live Demo
 
-**[Try it now at wearables.doctordripp.com](https://wearables.doctordripp.com/)**
+**[wearables.doctordripp.com](https://wearables.doctordripp.com/){:target="_blank"}**
 
 ## Features
 
