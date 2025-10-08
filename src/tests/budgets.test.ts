@@ -6,7 +6,8 @@ import {
   getBudgetConfig, 
   getAvailableTargetSlots,
   getAvailableHiddenSlots,
-  isHelmetSpecialRule 
+  isHelmetSpecialRule,
+  getSkinRequiredHiddenSlots
 } from '../lib/budgets';
 import type { UserSelection } from '../lib/types';
 
@@ -71,6 +72,17 @@ describe('Budget Calculations', () => {
         handHidesBase: false,
       };
       
+      expect(computeTriangleBudget(selection)).toBe(5000);
+    });
+
+    it('should handle skin slot with hidden slots - always returns 5000', () => {
+      const selection: UserSelection = {
+        targetSlot: 'skin',
+        hiddenSlots: ['hat', 'helmet', 'upper_body', 'lower_body'],
+        handHidesBase: false,
+      };
+      
+      // Skin always returns 5000 regardless of hidden slots
       expect(computeTriangleBudget(selection)).toBe(5000);
     });
   });
@@ -153,6 +165,23 @@ describe('Budget Calculations', () => {
       };
       
       expect(isHelmetSpecialRule(selection)).toBe(false);
+    });
+  });
+
+  describe('getSkinRequiredHiddenSlots', () => {
+    it('should return all slots except skin', () => {
+      const requiredSlots = getSkinRequiredHiddenSlots();
+      const allSlots = getAvailableTargetSlots();
+      
+      expect(requiredSlots).not.toContain('skin');
+      expect(requiredSlots).toHaveLength(allSlots.length - 1);
+      expect(requiredSlots).toContain('hat');
+      expect(requiredSlots).toContain('helmet');
+      expect(requiredSlots).toContain('upper_body');
+      expect(requiredSlots).toContain('lower_body');
+      expect(requiredSlots).toContain('feet');
+      expect(requiredSlots).toContain('hair');
+      expect(requiredSlots).toContain('hands');
     });
   });
 });

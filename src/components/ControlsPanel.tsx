@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useStore } from '../state/useStore';
-import { getAvailableTargetSlots, getAvailableHiddenSlots } from '../lib/budgets';
+import { getAvailableTargetSlots, getAvailableHiddenSlots, getSkinRequiredHiddenSlots } from '../lib/budgets';
 import BudgetCard from './BudgetCard';
 
 const ControlsPanel: React.FC = () => {
@@ -22,10 +22,22 @@ const ControlsPanel: React.FC = () => {
   const availableHiddenSlots = getAvailableHiddenSlots(targetSlot);
 
   const handleTargetSlotChange = (slot: string) => {
-    setTargetSlot(slot as any);
+    const newTargetSlot = slot as any;
+    setTargetSlot(newTargetSlot);
+    
+    // Special case for skin: auto-select all hidden slots
+    if (newTargetSlot === 'skin') {
+      const skinRequiredSlots = getSkinRequiredHiddenSlots();
+      setHiddenSlots(skinRequiredSlots);
+    }
   };
 
   const handleHiddenSlotToggle = (slot: string) => {
+    // Prevent unchecking hidden slots when target is skin
+    if (targetSlot === 'skin' && hiddenSlots.includes(slot as any)) {
+      return; // Do nothing - cannot uncheck when skin is selected
+    }
+    
     const newHiddenSlots = hiddenSlots.includes(slot as any)
       ? hiddenSlots.filter(s => s !== slot)
       : [...hiddenSlots, slot as any];
@@ -82,19 +94,26 @@ const ControlsPanel: React.FC = () => {
             Hidden Slots (Multi-select)
           </label>
           <div className="space-y-2 max-h-32 overflow-y-auto">
-            {availableHiddenSlots.map(slot => (
-              <label key={slot} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={hiddenSlots.includes(slot as any)}
-                  onChange={() => handleHiddenSlotToggle(slot)}
-                  className="rounded"
-                />
-                <span className="text-sm text-gray-300">
-                  {slot.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                </span>
-              </label>
-            ))}
+            {availableHiddenSlots.map(slot => {
+              const isChecked = hiddenSlots.includes(slot as any);
+              const isDisabled = targetSlot === 'skin' && isChecked;
+              
+              return (
+                <label key={slot} className={`flex items-center space-x-2 ${isDisabled ? 'opacity-60' : ''}`}>
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => handleHiddenSlotToggle(slot)}
+                    disabled={isDisabled}
+                    className="rounded"
+                  />
+                  <span className="text-sm text-gray-300">
+                    {slot.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                    {isDisabled && ' (required for skin)'}
+                  </span>
+                </label>
+              );
+            })}
           </div>
         </div>
       )}

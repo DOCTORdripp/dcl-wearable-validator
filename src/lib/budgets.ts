@@ -63,6 +63,11 @@ export const BASE_BUDGET_CONFIG: Record<Slot, BudgetConfig> = {
 export function computeTriangleBudget(selection: UserSelection): number {
   const { targetSlot, hiddenSlots, handHidesBase } = selection;
 
+  // Special case: skin - always 5000 triangles, no combining with hidden slots
+  if (targetSlot === 'skin') {
+    return 5000;
+  }
+
   // Special case: hands with base hand hidden
   if (targetSlot === 'hands' && handHidesBase) {
     return 1500;
@@ -132,4 +137,12 @@ export function getAvailableHiddenSlots(targetSlot: Slot | null): Slot[] {
 export function isHelmetSpecialRule(selection: UserSelection): boolean {
   return selection.targetSlot === 'helmet' && 
          HELMET_HIDE_SET.every(slot => selection.hiddenSlots.includes(slot));
+}
+
+/**
+ * Get all slots that should be auto-selected for skin target
+ * For skin, all other slots must be hidden
+ */
+export function getSkinRequiredHiddenSlots(): Slot[] {
+  return getAvailableTargetSlots().filter(slot => slot !== 'skin');
 }
