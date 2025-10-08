@@ -1,5 +1,7 @@
 // src/lib/types.ts
 
+import * as THREE from 'three';
+
 export type Slot =
   | 'hat'
   | 'helmet'

@@ -9,8 +9,6 @@ import ResultsPanel from './ResultsPanel';
 
 const App: React.FC = () => {
   const { 
-    isDarkMode, 
-    toggleDarkMode, 
     model, 
     validationReport
   } = useStore();

@@ -133,7 +133,7 @@ const CameraController = ({ model }: { model: THREE.Object3D | null }) => {
 };
 
 const SimpleViewer: React.FC = () => {
-  const { model, isDarkMode, modelStats } = useStore();
+  const { model, modelStats } = useStore();
 
   return (
     <div className="relative w-full h-full bg-gray-900">
@@ -145,7 +145,7 @@ const SimpleViewer: React.FC = () => {
           far: 1000
         }}
         className="w-full h-full"
-        onCreated={({ camera, scene }) => {
+        onCreated={({ camera }) => {
           // Ensure we have a good default setup
           camera.position.set(5, 5, 5);
           camera.lookAt(0, 0, 0);

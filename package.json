@@ -14,11 +14,11 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@react-three/drei": "^9.88.13",
+    "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.15.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.158.0",
+    "three": "^0.180.0",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
@@ -27,7 +27,7 @@
     "@testing-library/user-event": "^14.5.1",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
-    "@types/three": "^0.158.3",
+    "@types/three": "^0.180.0",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "@vitejs/plugin-react": "^4.2.1",
