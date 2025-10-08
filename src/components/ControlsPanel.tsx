@@ -93,7 +93,7 @@ const ControlsPanel: React.FC = () => {
           <label className="block text-sm font-medium text-gray-300 mb-2">
             Hidden Slots (Multi-select)
           </label>
-          <div className="space-y-2 max-h-32 overflow-y-auto">
+          <div className="grid grid-cols-3 gap-2">
             {availableHiddenSlots.map(slot => {
               const isChecked = hiddenSlots.includes(slot as any);
               const isDisabled = targetSlot === 'skin' && isChecked;
