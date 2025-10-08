@@ -40,7 +40,7 @@ const App: React.FC = () => {
                   aria-label="Visit Doctor Dripp"
                 >
                   <img 
-                    src="/src/logo192.png" 
+                    src="/logo192.png" 
                     alt="Doctor Dripp Logo" 
                     className="w-8 h-8"
                   />
